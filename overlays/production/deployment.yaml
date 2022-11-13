@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: contosoair
+  name: contosoair
+spec:
+  selector:
+    matchLabels:
+      app: contosoair
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+    spec:
+      containers:
+      - image: fabmedicalaiw.azurecr.io/contosoair
+        name: contosoair
+        resources: {}
+status: {}
