@@ -6,6 +6,7 @@ metadata:
     app: contosoair
   name: contosoair
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: contosoair
@@ -13,9 +14,13 @@ spec:
   template:
     metadata:
       creationTimestamp: null
+      labels:
+        app: contosoair
     spec:
       containers:
       - image: fabmedicalaiw.azurecr.io/contosoair
         name: contosoair
+        ports:
+        - containerPort: 8080
         resources: {}
 status: {}

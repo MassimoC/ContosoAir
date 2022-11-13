@@ -1,4 +1,4 @@
-name: Build and deploy an app to AKS with Kustomize
+name: Build and deploy an app to AKS
 "on":
     push:
         branches:
@@ -6,10 +6,10 @@ name: Build and deploy an app to AKS with Kustomize
     workflow_dispatch: null
 env:
     AZURE_CONTAINER_REGISTRY: fabmedicalaiw
-    CLUSTER_NAME: fabmedicalaiw
+    CLUSTER_NAME: fabmedical
     CONTAINER_NAME: contosoair
+    DEPLOYMENT_MANIFEST_PATH: ./manifests
     IMAGE_PULL_SECRET_NAME: fabmedicalaiwsecret
-    KUSTOMIZE_PATH: ./overlays/production
     RESOURCE_GROUP: fabmedical-aiw
 jobs:
     buildImage:
@@ -84,18 +84,11 @@ jobs:
               with:
                 cluster-name: ${{ env.CLUSTER_NAME }}
                 resource-group: ${{ env.RESOURCE_GROUP }}
-            - id: bake
-              name: Bake deployment
-              uses: azure/k8s-bake@v2.1
-              with:
-                kubectl-version: latest
-                kustomizationPath: ${{ env.KUSTOMIZE_PATH }}
-                renderEngine: kustomize
-            - name: Deploy application
+            - name: Deploys application
               uses: Azure/k8s-deploy@v3.1
               with:
                 action: deploy
                 imagepullsecrets: ${{ env.IMAGE_PULL_SECRET_NAME }}
                 images: |
                     ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }}
-                manifests: ${{ steps.bake.outputs.manifestsBundle }}
+                manifests: ${{ env.DEPLOYMENT_MANIFEST_PATH }}
