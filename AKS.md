@@ -12,6 +12,6 @@ az aks draft create
 # create gh action
 az aks draft generate-workflow
 
-az aks draft generate-workflow --branch=main-aks --resource-group=fabmedical-aiw --cluster-name=fabmedical --registry-name=fabmedicalaiw --container-name=contosoair 
+az aks draft generate-workflow --branch=main-aks --resource-group=fabmedical-aiw --cluster-name=fabmedicalaiw --registry-name=fabmedicalaiw --container-name=contosoair 
 
 ```
