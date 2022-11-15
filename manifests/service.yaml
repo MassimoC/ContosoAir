@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: contosoair
+  name: contosoair-today
 spec:
   type: LoadBalancer
   selector:
-    app: contosoair
+    app: contosoair-today
   ports:
     - protocol: TCP
       port: 80

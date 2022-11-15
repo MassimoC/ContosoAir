@@ -1,21 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: contosoair
+  creationTimestamp: null
   labels:
-    app: contosoair
+    app: contosoair-today
+  name: contosoair-today
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: contosoair
+      app: contosoair-today
+  strategy: {}
   template:
     metadata:
+      creationTimestamp: null
       labels:
-        app: contosoair
+        app: contosoair-today
     spec:
       containers:
-        - name: contosoair
-          image: contosoairkubecon.azurecr.io/contosoair:latest
-          ports:
-            - containerPort: 8080
+      - image: fabmedicalaiw.azurecr.io/contosoair-today
+        name: contosoair-today
+        ports:
+        - containerPort: 8080
+        resources: {}
+status: {}
